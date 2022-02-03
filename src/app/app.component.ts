@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'estimadorHistoryPoints';
   imgBackground: string = environment.imgBackground;
   nombreSector: string = environment.nombreSector;
   version: string = environment.version;
