@@ -1,0 +1,20 @@
+<div class="container-fluid h-100">
+  <div
+    id="row-principal"
+    class="row text-center justify-content-center h-100 aling-items-center"
+  >
+    <h2 id="pregunta-display" class="fs-5 mb-md-4">
+      {{ this.pregunta?.texto }}
+    </h2>
+    <div class="row justify-content-between justify-content-lg-between">
+      <button
+        class="mb-2 btn btn-secondary col-12 col-lg-12 col-md-12"
+        *ngFor="let opcion of this.pregunta?.opciones"
+        id="{{ opcion.opcionId }}"
+        (click)="opcionElegida(opcion)"
+      >
+        {{ opcion.texto }}
+      </button>
+    </div>
+  </div>
+</div>

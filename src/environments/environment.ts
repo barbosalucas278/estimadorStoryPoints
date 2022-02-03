@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  version: '1.0.0',
+  imgBackground: '../assets/background-estimador-limpio.png',
+  nombreSector: 'Squad SOM - Telecom Argentina',
 };
 
 /*
