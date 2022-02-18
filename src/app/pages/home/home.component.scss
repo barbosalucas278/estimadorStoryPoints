@@ -1,0 +1,15 @@
+#contenedor-app {
+  height: 400px;
+  width: 60%;
+  border-radius: 20%;
+  border: 20px solid #777;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  #contenedor-app {
+    width: 100%;
+  }
+}

@@ -9,14 +9,18 @@ import { Pregunta } from 'src/app/entidades/pregunta';
 })
 export class ConsultaComponent implements OnInit {
   @Input() pregunta?: Pregunta;
-  @Output() opcionElegidaEvent: EventEmitter<Opcion> =
+  @Output() opcionPuntajeElegidaEvent: EventEmitter<Opcion> =
+    new EventEmitter<Opcion>();
+  @Output() caminoIsChangedEvent: EventEmitter<Opcion> =
     new EventEmitter<Opcion>();
   constructor() {}
 
   ngOnInit(): void {}
   opcionElegida(opcion: Opcion) {
-    if (opcion) {
-      this.opcionElegidaEvent.emit(opcion);
+    if (this.pregunta?.isChangeCamino) {
+      this.caminoIsChangedEvent.emit(opcion);
+    } else {
+      this.opcionPuntajeElegidaEvent.emit(opcion);
     }
   }
 }

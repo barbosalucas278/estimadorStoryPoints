@@ -1,0 +1,15 @@
+.btn-check:focus + .btn,
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0) !important;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .offcanvas-start {
+    top: 0;
+    left: 0;
+    width: 285px !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}

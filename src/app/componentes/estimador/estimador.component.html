@@ -1,12 +1,12 @@
 <div class="container-fluid h-100">
   <div
-    *ngIf="!hasIniciado; else elseBlock"
+    *ngIf="!$hasIniciado; else elseBlock"
     id="row-principal"
     class="row text-center justify-content-center h-100 aling-items-center"
   >
     <h2 class="h-25 mt-4 fs-4">Bienvenidos al estimador de tareas</h2>
     <button
-      class="mb-3 btn btn-secondary col-4 col-md-5 col-sm-8 fw-bolder"
+      class="mb-3 btn btn-secondary col-5 col-md-5 col-sm-8 fw-bolder"
       (click)="iniciar()"
     >
       INICIAR
@@ -14,13 +14,14 @@
   </div>
   <ng-template #elseBlock>
     <div
-      *ngIf="!terminado; else terminadoBlock"
+      *ngIf="!$terminado; else terminadoBlock"
       id="row-principal"
-      class="row text-center justify-content-center h-100 aling-items-center"
+      class="row text-center justify-content-center h-100 aling-items-center mt-5"
     >
       <app-consulta
         [pregunta]="preguntaActiva"
-        (opcionElegidaEvent)="onOpcionelegida($event)"
+        (opcionPuntajeElegidaEvent)="onOpcionElegida($event)"
+        (caminoIsChangedEvent)="onCaminoIsChanged($event)"
       ></app-consulta>
     </div>
     <ng-template #terminadoBlock>

@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-start contenedor-logo">
+  <div
+    class="col-12 img-login"
+    [ngStyle]="{ 'background-image': 'url(' + imgLogin + ')' }"
+  >
+    <div class="col-7 ms-4">
+      <h1 class="text-break fw-bolder font-monospace mt-5">Estimador</h1>
+      <p class="fs-1 fw-normal fst-italic">de</p>
+      <p class="fs-1 fw-bolder">Story Points</p>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10 col-md-6">
+      <div class="row contenedor-google bg-light rounded shadow">
+        <img
+          src="{{ imgBtnGoogle }}"
+          class="img img-fluid col-2 col-sm-2"
+          alt=""
+        />
+        <div
+          class="col-10 col-sm-9 texto-google text-center"
+          (click)="loginWithGoogle()"
+        >
+          <span class="text-center">Iniciar sesión con Google</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

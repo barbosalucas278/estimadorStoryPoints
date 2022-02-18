@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
     <title>Estimador</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Estimador de Story Points para tareas" />
     <meta
-      name="og:description"
+      name="image"
+      content="https://estimador-his-points.web.app/assets/portada.png"
+    />
+    <meta property="og:title" content="Estimador de Story Points" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
       content="Estimador de Story Points para tareas"
+    />
+    <meta
+      property="og:image"
+      content="https://estimador-his-points.web.app/assets/portada.png"
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -20,7 +31,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="mat-typography">
+  <body class="d-flex flex-column h-100">
     <app-root></app-root>
   </body>
 </html>

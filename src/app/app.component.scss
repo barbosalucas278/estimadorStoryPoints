@@ -1,11 +1,5 @@
-#contenedor-app {
-  height: 300px;
-  width: 45%;
-  border-radius: 20%;
-  border: 20px solid #777;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+.contenedor-principal {
+  height: 550px !important;
 }
 .box-footer {
   text-align: center;
@@ -19,10 +13,12 @@
   padding-top: 1.5rem !important;
   margin-top: 1.5rem !important;
 }
-
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  #contenedor-app {
-    width: 95%;
+  .container-fluid {
+    padding: 0 !important;
+  }
+  .contenedor-principal {
+    height: 550px !important;
   }
 }

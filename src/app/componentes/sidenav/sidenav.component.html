@@ -1,0 +1,93 @@
+<button
+  class="btn fs-1 fw-bolder"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasSideBar"
+  aria-controls="offcanvasSideBar"
+>
+  <i class="bi bi-list"></i>
+</button>
+
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasSideBar"
+  aria-labelledby="offcanvasSideBarLabel"
+>
+  <div class="flex-shrink-0 p-3 bg-white" style="width: 280px">
+    <div
+      class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
+    >
+      <span class="fs-5 fw-bolder">Administración</span>
+    </div>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button
+          class="btn btn-toggle align-items-center rounded collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#orders-collapse"
+          aria-expanded="false"
+        >
+          <img
+            src="{{ user!.photoUrl }}"
+            alt=""
+            width="32"
+            height="32"
+            class="rounded-circle me-2"
+          />
+          <strong>{{ user!.name }}</strong>
+        </button>
+        <div class="" id="orders-collapse">
+          <ul
+            class="btn-toggle-nav list-unstyled fw-normal pb-1 d-flex flex-column ms-5"
+          >
+            <li>
+              <a (click)="onLogout()" class="link-dark rounded"
+                >Cerrar Sesión</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button
+          class="btn btn-toggle align-items-center rounded collapsed fw-bolder"
+          data-bs-toggle="collapse"
+          data-bs-target="#home-collapse"
+          aria-expanded="true"
+        >
+          Estimadores
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul
+            class="btn-toggle-nav list-unstyled fw-normal pb-1 d-flex flex-column ms-5"
+          >
+            <li><a href="#" class="link-dark rounded">Estimador 1</a></li>
+            <li><a href="#" class="link-dark rounded">Estimador 2</a></li>
+            <li><a href="#" class="link-dark rounded">Estimador 3</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button
+          class="btn btn-toggle align-items-center rounded collapsed fw-bolder"
+          data-bs-toggle="collapse"
+          data-bs-target="#dashboard-collapse"
+          aria-expanded="false"
+        >
+          Grupos
+        </button>
+        <div class="collapse" id="dashboard-collapse">
+          <ul
+            class="btn-toggle-nav list-unstyled fw-normal pb-1 d-flex flex-column ms-5"
+          >
+            <li><a href="#" class="link-dark rounded">Grupo 1</a></li>
+            <li><a href="#" class="link-dark rounded">Grupo 2</a></li>
+            <li><a href="#" class="link-dark rounded">Grupo 3</a></li>
+            <li><a href="#" class="link-dark rounded">Grupo 4</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

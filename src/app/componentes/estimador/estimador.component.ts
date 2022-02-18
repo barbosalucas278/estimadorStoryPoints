@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Opcion } from 'src/app/entidades/opcion';
 import { Pregunta } from 'src/app/entidades/pregunta';
 import { PreguntaServiceService } from 'src/app/service/pregunta-service.service';
 enum Caminos {
@@ -11,79 +12,81 @@ enum Caminos {
   styleUrls: ['./estimador.component.scss'],
 })
 export class EstimadorComponent implements OnInit {
+  $hasIniciado: boolean;
+  $terminado: boolean;
+
   puntosTotales: number = 0;
-  hasIniciado: boolean;
-  terminado: boolean;
-  hasCamino: boolean;
   caminoElegido?: number;
+  preguntasCaminoActivo: Pregunta[];
   preguntaActiva?: Pregunta;
   siguientePreguntaId: number;
   constructor(private preguntaService: PreguntaServiceService) {
-    this.hasIniciado = false;
-    this.terminado = false;
-    this.hasCamino = false;
+    this.$hasIniciado = false;
+    this.$terminado = false;
     this.siguientePreguntaId = 0;
+    this.caminoElegido = 0;
+    this.preguntasCaminoActivo = [];
   }
 
   ngOnInit(): void {}
   iniciar() {
-    this.hasIniciado = true;
-    this.preguntaActiva = this.preguntaService.getPreguntaById(1);
+    const caminoInicio = 0;
+    this.$hasIniciado = true;
+    this.preguntaActiva =
+      this.preguntaService.getFirstPreguntaByCamino(caminoInicio);
+    this.preguntasCaminoActivo =
+      this.preguntaService.getPreguntasHastaElProximoCambioDeCamino(
+        caminoInicio
+      );
   }
-  onOpcionelegida($event: any) {
-    if (!this.hasCamino) {
-      this.hasCamino = true;
-      switch ($event.opcionId) {
-        case Caminos.Solo: //solo
-          this.caminoElegido = Caminos.Solo;
-          this.siguientePreguntaId = 2;
-          break;
-
-        case Caminos.NecesitaAyuda: //necesita ayuda
-          this.caminoElegido = Caminos.NecesitaAyuda;
-          this.siguientePreguntaId = 3;
-          break;
-      }
-    } else {
-      this.puntosTotales += $event.puntaje;
+  onCaminoIsChanged($event: Opcion) {
+    try {
+      this.caminoElegido = $event.valor;
+      this.siguientePreguntaCaminoChanged();
+    } catch (error) {
+      this.terminar();
     }
+  }
+  onOpcionElegida($event: Opcion) {
+    try {
+      this.puntosTotales += $event.valor;
+      this.siguientePreguntaCamino();
+    } catch (error) {
+      console.log(error);
 
-    this.siguientePregunta();
+      this.terminar();
+    }
   }
 
-  siguientePregunta() {
-    switch (this.caminoElegido) {
-      case Caminos.Solo: //solo
-        if (this.siguientePreguntaId == 2) {
-          this.preguntaActiva = this.preguntaService.getPreguntaById(
-            this.siguientePreguntaId
-          );
-        } else {
-          this.terminar();
-        }
-        break;
+  siguientePreguntaCamino() {
+    console.log(this.siguientePreguntaId + 'antes');
+    this.siguientePreguntaId = this.preguntaActiva!.id + 1;
 
-      case Caminos.NecesitaAyuda: //necesita ayuda
-        if (this.siguientePreguntaId <= 6) {
-          this.preguntaActiva = this.preguntaService.getPreguntaById(
-            this.siguientePreguntaId
-          );
-        } else {
-          this.terminar();
-        }
-        break;
+    this.preguntaActiva = this.preguntasCaminoActivo.find(
+      (p) => p.id == this.siguientePreguntaId
+    );
+    console.log(this.siguientePreguntaId + 'despeus');
+    if (!this.preguntaActiva) {
+      this.terminar();
     }
-    this.siguientePreguntaId++;
+  }
+  siguientePreguntaCaminoChanged() {
+    this.preguntasCaminoActivo = [];
+    this.preguntasCaminoActivo =
+      this.preguntaService.getPreguntasHastaElProximoCambioDeCamino(
+        this.caminoElegido!
+      );
+    this.preguntaActiva = this.preguntasCaminoActivo[0];
+    this.siguientePreguntaId = this.preguntaActiva!.id + 1;
   }
   terminar() {
-    this.terminado = true;
+    this.$terminado = true;
   }
   resetearPuntaje() {
-    this.terminado = false;
+    this.$terminado = false;
     this.puntosTotales = 0;
-    this.hasCamino = false;
-    this.caminoElegido = undefined;
+    this.caminoElegido = 0;
     this.siguientePreguntaId = 0;
-    this.hasIniciado = false;
+    this.$hasIniciado = false;
   }
 }

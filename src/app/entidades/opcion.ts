@@ -1,5 +1,5 @@
 export interface Opcion {
   opcionId: number;
   texto: string;
-  puntaje: number;
+  valor: number;
 }

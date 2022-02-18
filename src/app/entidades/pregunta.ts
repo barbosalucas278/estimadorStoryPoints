@@ -1,7 +1,9 @@
 import { Opcion } from './opcion';
 
 export interface Pregunta {
-  preguntaId: number;
+  id: number;
   texto: string;
+  valorCamino: number;
+  isChangeCamino: boolean;
   opciones: Opcion[];
 }
