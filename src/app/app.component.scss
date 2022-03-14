@@ -1,6 +1,7 @@
 .contenedor-principal {
   height: 72vh !important;
   padding-bottom: 250px !important;
+  // padding-bottom: 100px !important;
 }
 .box-footer {
   text-align: center;
@@ -28,7 +29,8 @@
   .container-fluid {
     padding: 0 !important;
   }
-  .contenedor-principal {
-    height: 550px !important;
+  .contenedor-app {
+    height: auto;
+    padding-bottom: 250px !important;
   }
 }
