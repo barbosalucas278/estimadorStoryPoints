@@ -31,6 +31,11 @@
   }
   .contenedor-app {
     height: auto;
-    padding-bottom: 250px !important;
+    min-height: 100%;
+    //padding-bottom: 250px !important;
+    margin: 0 auto -320px;
+  }
+  .footer .push {
+    height: 320px;
   }
 }
