@@ -1,4 +1,5 @@
 <app-sidenav
   *ngIf="userHasLogged"
   (onLogoutEvent)="handleOnLogoutEvent()"
+  [user]="userData"
 ></app-sidenav>

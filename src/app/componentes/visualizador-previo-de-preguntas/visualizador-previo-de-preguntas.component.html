@@ -1,0 +1,133 @@
+<!-- <div class="container-fluid">
+  <div *ngFor="let p of preguntas">
+    <div class="list-group" *ngIf="p.isChangeCamino && p.id == 1">
+      <h4>#{{ p.id }} {{ p.texto }}</h4>
+
+      <div class="container-fluid" *ngFor="let camino of p.opciones">
+        <div class="row justify-content-center border border-warning border-3">
+          <h6 class="bg-warning">Opción: {{ camino.texto }}</h6>
+          <div *ngFor="let preg of preguntas">
+            <div
+              *ngIf="preg.valorCamino == camino.valor && !preg.isChangeCamino"
+            >
+              {{ preg.texto! | textoLargo }}
+            </div>
+          </div>
+          <div
+            class="row justify-content-between mb-2"
+            *ngIf="!tienePreguntaCamino(camino.valor!)"
+          >
+            <button
+              class="btn btn-sm btn-outline-info col-5 btn-slim"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasBottom"
+              aria-controls="offcanvasBottom"
+              (click)="handlerPreguntaCamino(camino)"
+            >
+              Camino
+            </button>
+            <button
+              class="btn btn-sm btn-outline-info col-5 btn-slim"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasBottomPuntaje"
+              aria-controls="offcanvasBottomPuntaje"
+              (click)="handlerPreguntaPuntaje(camino)"
+            >
+              Puntaje
+            </button>
+          </div>
+        </div>
+        <div class="row justify-content-center"></div>
+        <div *ngFor="let pr of preguntas">
+          <div *ngIf="pr.valorCamino == camino.valor && pr.isChangeCamino">
+            <h6 class=""># {{ pr.id }} {{ pr.texto }}</h6>
+            <div class="container-fluid" *ngFor="let camino of pr.opciones">
+              <div
+                class="row justify-content-center border border-success border-3 mb-3"
+              >
+                <h6 class="bg-success">Opción: {{ camino.texto }}</h6>
+                <div *ngFor="let preg of preguntas">
+                  <div *ngIf="preg.valorCamino == camino.valor">
+                    {{ preg.texto! | textoLargo }}
+                  </div>
+                </div>
+                <div
+                  class="row justify-content-between mb-2"
+                  *ngIf="!tienePreguntaCamino(camino.valor!)"
+                >
+                  <button
+                    class="btn btn-sm btn-outline-info col-5 btn-slim"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasBottomPuntaje"
+                    aria-controls="offcanvasBottomPuntaje"
+                    (click)="handlerPreguntaPuntaje(camino)"
+                  >
+                    Puntaje
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<mat-tree
+  [dataSource]="dataSource"
+  [treeControl]="treeControl"
+  class="example-tree"
+>
+  <!-- This is the tree node template for leaf nodes -->
+  <!-- There is inline padding applied to this node using styles.
+    This padding value depends on the mat-icon-button width. -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+    {{ node.name }}
+  </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+    <div class="mat-tree-node">
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'Toggle ' + node.name"
+      >
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+        </mat-icon>
+      </button>
+      {{ node.name }}
+      <div
+        class="row justify-content-between mb-2"
+        *ngIf="!node.isChangeCamino && !tienePreguntaCamino(node.camino)"
+      >
+        <button
+          class="btn btn-sm btn-outline-info col-6 btn-slim"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasBottom"
+          aria-controls="offcanvasBottom"
+          (click)="handlerPreguntaCamino(node.camino)"
+        >
+          Camino
+        </button>
+        <button
+          class="btn btn-sm btn-outline-info col-6 btn-slim"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasBottomPuntaje"
+          aria-controls="offcanvasBottomPuntaje"
+          (click)="handlerPreguntaPuntaje(node.camino)"
+        >
+          Puntaje
+        </button>
+      </div>
+    </div>
+    <!-- There is inline padding applied to this div using styles.
+          This padding value depends on the mat-icon-button width.  -->
+    <div
+      [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+      role="group"
+    >
+      <ng-container matTreeNodeOutlet></ng-container>
+    </div>
+  </mat-nested-tree-node>
+</mat-tree>

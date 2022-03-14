@@ -29,13 +29,13 @@
           aria-expanded="false"
         >
           <img
-            src="{{ user!.photoUrl }}"
+            src="{{ user!.photoURL }}"
             alt=""
             width="32"
             height="32"
             class="rounded-circle me-2"
           />
-          <strong>{{ user!.name }}</strong>
+          <strong>{{ user!.displayName }}</strong>
         </button>
         <div class="" id="orders-collapse">
           <ul
@@ -62,9 +62,39 @@
           <ul
             class="btn-toggle-nav list-unstyled fw-normal pb-1 d-flex flex-column ms-5"
           >
-            <li><a href="#" class="link-dark rounded">Estimador 1</a></li>
-            <li><a href="#" class="link-dark rounded">Estimador 2</a></li>
-            <li><a href="#" class="link-dark rounded">Estimador 3</a></li>
+            <li>
+              <a
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSideBar"
+                class="link-dark rounded"
+                >Estimador 1</a
+              >
+            </li>
+            <li>
+              <a
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSideBar"
+                class="link-dark rounded"
+                >Estimador 2</a
+              >
+            </li>
+            <li>
+              <a
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSideBar"
+                class="link-dark rounded"
+                >Estimador 3</a
+              >
+            </li>
+            <li>
+              <a
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSideBar"
+                (click)="handlerCrearNuevoEstimador()"
+                class="link-dark rounded text-decoration-underline"
+                >Crear nuevo Estimador</a
+              >
+            </li>
           </ul>
         </div>
       </li>

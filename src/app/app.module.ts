@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,20 @@ import { HomeComponent } from './pages/home/home.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { FirebaseModule } from './firebase/firebase.module';
 import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
+import { CreateEstimadorComponent } from './pages/create-estimador/create-estimador.component';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormCreatePregCaminoComponent } from './componentes/form-create-preg-camino/form-create-preg-camino.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormCreatePregPuntajeComponent } from './componentes/form-create-preg-puntaje/form-create-preg-puntaje.component';
+import { ModalCreacionOpcionComponent } from './componentes/modal-creacion-opcion/modal-creacion-opcion.component';
+import { PipesModule } from './pipes/pipes.module';
+import { VisualizadorPrevioDePreguntasComponent } from './componentes/visualizador-previo-de-preguntas/visualizador-previo-de-preguntas.component';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +39,29 @@ import { GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
     FooterComponent,
     HomeComponent,
     ErrorPageComponent,
+    CreateEstimadorComponent,
+    FormCreatePregCaminoComponent,
+    FormCreatePregPuntajeComponent,
+    ModalCreacionOpcionComponent,
+    VisualizadorPrevioDePreguntasComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FirebaseModule, SocialLoginModule],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FirebaseModule,
+    SocialLoginModule,
+    PipesModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSnackBarModule,
+    MatTreeModule,
+    MatIconModule,
+  ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

@@ -1,0 +1,102 @@
+<div class="row justify-content-center">
+  <form [formGroup]="form">
+    <textarea
+      class="form-control mb-2"
+      placeholder="Ingrese una pregunta de puntaje"
+      autofocus="true"
+      autocomplete="off"
+      required
+      wrap="hard"
+      formControlName="texto"
+      maxlength="250"
+      minlength="50"
+    ></textarea>
+    <div
+      class="row mb-2 justify-content-center"
+      *ngFor="let opcion of newPreguntaPuntaje!.opciones"
+    >
+      <button
+        class="btn btn-outline-primary col-10"
+        data-bs-toggle="modal"
+        data-bs-target="#modalOpcion"
+        (click)="mostrarModalOpcion(opcion)"
+        *ngIf="!opcion.texto; else templateOpcion"
+      >
+        Opción {{ opcion.opcionId! }}
+      </button>
+      <ng-template #templateOpcion>
+        <button class="btn btn-outline-success col-9" disabled>
+          {{ opcion.texto! | textoLargo }}
+        </button>
+        <div class="col-1">
+          <i
+            class="bi bi-pencil-fill text-warning fs-3"
+            data-bs-toggle="modal"
+            data-bs-target="#modalOpcion"
+            (click)="mostrarModalOpcion(opcion)"
+          ></i>
+        </div>
+      </ng-template>
+    </div>
+  </form>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="col-10"
+    (click)="agregarOpcion()"
+    *ngIf="newPreguntaPuntaje!.opciones!.length! < 4"
+  >
+    Agregar Opción
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    class="col-10"
+    (click)="quitarUltimaOpcion()"
+    *ngIf="newPreguntaPuntaje!.opciones!.length! > 2"
+  >
+    Quitar última Opción
+  </button>
+  <button
+    mat-raised-button
+    class="col-10 text-light bg-success mt-2"
+    (click)="finalizar()"
+    data-bs-dismiss="offcanvas"
+    aria-label="Close"
+    [disabled]="!form.valid"
+  >
+    Finalizar
+  </button>
+  <div
+    class="alert alert-danger col-10 mt-2 fw-bolder"
+    role="alert"
+    *ngIf="showError"
+  >
+    {{ mensajeDeError }}
+  </div>
+</div>
+
+<!-- Modal de creación de opcion -->
+<!-- Modal -->
+<div class="modal fade" id="modalOpcion" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar Opción</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <app-modal-creacion-opcion
+          (creacionTerminadaEvent)="handlerNuevaOpcionCreada($event)"
+          [opcionIn]="opcionActiva"
+        ></app-modal-creacion-opcion>
+      </div>
+    </div>
+  </div>
+</div>

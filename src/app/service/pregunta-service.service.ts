@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Pregunta } from '../entidades/pregunta';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreguntaServiceService {
+  @Output() listaUpdated: EventEmitter<Pregunta[]> = new EventEmitter();
+  //private listaDePreguntas: Pregunta[] = [];
   //Test con varios caminos
   private listaDePreguntas: Pregunta[] = [
     {
@@ -221,5 +223,12 @@ export class PreguntaServiceService {
     if (!primerPregunta) throw new Error('No se encuentra la pregunta');
 
     return primerPregunta;
+  }
+  getPreguntasAll() {
+    return this.listaDePreguntas;
+  }
+  agregarPregunta(newPregunta: Pregunta) {
+    this.listaDePreguntas.push(newPregunta);
+    this.listaUpdated.emit(this.listaDePreguntas);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService } from 'angularx-social-login';
+import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { Usuario } from 'src/app/entidades/usuario';
 
 @Component({
@@ -9,26 +9,23 @@ import { Usuario } from 'src/app/entidades/usuario';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  userData?: Usuario;
+  userData?: any;
   userHasLogged: boolean;
-  constructor(
-    private socialAuthService: SocialAuthService,
-    private router: Router
-  ) {
+  constructor(private authService: AuthService, private router: Router) {
     this.userHasLogged = false;
-  }
-
-  ngOnInit(): void {
-    this.socialAuthService.authState.subscribe((userState) => {
+    this.authService.statusUserChangedEvent.subscribe((userState) => {
       if (userState) {
         this.userHasLogged = true;
+        this.userData = this.authService.currentUser;
       } else {
         this.userHasLogged = false;
       }
     });
   }
+
+  ngOnInit(): void {}
   handleOnLogoutEvent() {
-    this.socialAuthService.signOut().then(() => {
+    this.authService.logout().then(() => {
       setTimeout(() => {
         this.router.navigate(['auth']);
       }, 500);

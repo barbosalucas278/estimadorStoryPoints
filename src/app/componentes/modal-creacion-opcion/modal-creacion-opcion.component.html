@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <form [formGroup]="form">
+    <textarea
+      class="form-control"
+      placeholder="Opción"
+      autofocus="true"
+      autocomplete="off"
+      required
+      wrap="hard"
+      formControlName="texto"
+      maxlength="50"
+      minlength="2"
+      value="{{ opcionIn!.texto! }}"
+    ></textarea>
+  </form>
+  <!-- <input
+  type="number"
+  class="form-control"
+  formControlName="puntaje{{ newOpcion.opcionId }}"
+  placeholder="Puntaje"
+/> -->
+  <div
+    id="contenedor-puntaje"
+    class="d-flex align-items-center justify-content-center bg-primary col-9 position-relative rounded-circle mt-1"
+  >
+    <span
+      class="position-absolute top-0 start-60 badge rounded-pill bg-danger fs-3"
+    >
+      Puntaje
+    </span>
+    <p class="text-center text-light">{{ opcionIn!.valor! }}</p>
+  </div>
+  <div class="row justify-content-between contenedor-botones-puntaje">
+    <div class="col-4 m-0" (click)="disminuirPuntaje()">
+      <i class="bi bi-dash-circle-fill text-danger"> </i>
+    </div>
+    <div
+      [hidden]="!form.valid"
+      class="col-4 m-0"
+      (click)="finalizarCreacion()"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    >
+      <i class="bi bi-check-circle-fill text-primary"></i>
+    </div>
+    <div class="col-4 m-0" (click)="aumentarPuntaje()">
+      <i class="bi bi-plus-circle-fill text-success"></i>
+    </div>
+  </div>
+</div>

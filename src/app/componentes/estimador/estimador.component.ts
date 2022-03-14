@@ -49,7 +49,7 @@ export class EstimadorComponent implements OnInit {
   }
   onOpcionElegida($event: Opcion) {
     try {
-      this.puntosTotales += $event.valor;
+      this.puntosTotales += $event.valor!;
       this.siguientePreguntaCamino();
     } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ export class EstimadorComponent implements OnInit {
 
   siguientePreguntaCamino() {
     console.log(this.siguientePreguntaId + 'antes');
-    this.siguientePreguntaId = this.preguntaActiva!.id + 1;
+    this.siguientePreguntaId = this.preguntaActiva!.id! + 1;
 
     this.preguntaActiva = this.preguntasCaminoActivo.find(
       (p) => p.id == this.siguientePreguntaId
@@ -77,7 +77,7 @@ export class EstimadorComponent implements OnInit {
         this.caminoElegido!
       );
     this.preguntaActiva = this.preguntasCaminoActivo[0];
-    this.siguientePreguntaId = this.preguntaActiva!.id + 1;
+    this.siguientePreguntaId = this.preguntaActiva!.id! + 1;
   }
   terminar() {
     this.$terminado = true;

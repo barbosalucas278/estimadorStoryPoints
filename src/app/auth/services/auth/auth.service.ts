@@ -19,6 +19,8 @@ export class AuthService {
     private usuariosService: UsuariosService
   ) {
     this.afAuth.authState.subscribe((user) => {
+      console.log(user);
+
       if (user) {
         this.setCurrentUser(user);
         this.setHasLogged(true);
