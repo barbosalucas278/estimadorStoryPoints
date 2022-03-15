@@ -20,6 +20,7 @@ export class FormCreatePregPuntajeComponent implements OnInit, OnChanges {
   @Output() creacionTerminadaEvent = new EventEmitter<Pregunta>();
   @Input() ultimoId?: number;
   @Input() caminoActivo?: number;
+  @Input() preguntaParaEditar?: Pregunta;
   newPreguntaPuntaje?: Pregunta;
   mensajeDeError: string = '';
   showError: boolean = false;
@@ -35,18 +36,23 @@ export class FormCreatePregPuntajeComponent implements OnInit, OnChanges {
     this.inicializarPregunta();
   }
   inicializarPregunta() {
-    const id = this.ultimoId! + 1;
+    if (this.preguntaParaEditar) {
+      this.newPreguntaPuntaje = { ...this.preguntaParaEditar };
+      this.form.controls['texto'].setValue(this.newPreguntaPuntaje.texto);
+    } else {
+      const id = this.ultimoId! + 1;
 
-    this.newPreguntaPuntaje = {
-      id: id,
-      texto: '',
-      opciones: [
-        { opcionId: 1, valor: 0 },
-        { opcionId: 2, valor: 0 },
-      ],
-      isChangeCamino: false,
-      valorCamino: this.caminoActivo!,
-    };
+      this.newPreguntaPuntaje = {
+        id: id,
+        texto: '',
+        opciones: [
+          { opcionId: 1, valor: 0 },
+          { opcionId: 2, valor: 0 },
+        ],
+        isChangeCamino: false,
+        valorCamino: this.caminoActivo!,
+      };
+    }
   }
 
   ngOnInit(): void {}

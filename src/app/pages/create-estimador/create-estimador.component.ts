@@ -14,27 +14,51 @@ import { PreguntaServiceService } from 'src/app/service/pregunta-service.service
   styleUrls: ['./create-estimador.component.scss'],
 })
 export class CreateEstimadorComponent implements OnInit {
-  preguntas: Pregunta[];
-  ultimoId: number = 0;
+  ultimoId: number = 9; //cambiar a 0
   ultimoCamino: number = 0;
   caminoActivo: number = 0;
-  constructor(private preguntasService: PreguntaServiceService) {
-    this.preguntas = [];
-  }
+  preguntaPuntajeParaEditarActiva?: Pregunta;
+  preguntaCaminoParaEditarActiva?: Pregunta;
+  constructor(private preguntasService: PreguntaServiceService) {}
   ngOnInit(): void {}
 
-  agregarPreguntaCaminoEnCamino(camino: Opcion) {
-    this.caminoActivo = camino.valor!;
-    //this.ultimoCamino = camino.valor!;
+  agregarPreguntaCaminoEnCamino(camino: number) {
+    this.caminoActivo = camino;
   }
   handlerNewPregunta($event: Pregunta) {
-    this.preguntas.push($event);
-    this.ultimoCamino = $event.opciones![1].valor!;
-    this.ultimoId = $event.id!;
-    this.preguntasService.agregarPregunta($event);
+    if (
+      this.preguntaCaminoParaEditarActiva ||
+      this.preguntaPuntajeParaEditarActiva
+    ) {
+      this.preguntasService.modifyPregunta($event);
+      this.preguntaCaminoParaEditarActiva = undefined;
+      this.preguntaPuntajeParaEditarActiva = undefined;
+    } else {
+      if ($event.isChangeCamino) {
+        this.ultimoCamino = $event.opciones![1].valor!;
+      }
+      this.ultimoId = $event.id!;
+      this.preguntasService.agregarPregunta($event);
+    }
   }
 
-  agregarPreguntaPuntajeEnCamino(camino: Opcion) {
-    this.caminoActivo = camino.valor!;
+  agregarPreguntaPuntajeEnCamino(camino: number) {
+    this.caminoActivo = camino;
+  }
+  /**
+   *
+   * @param $event Id de la pregunta a editar
+   */
+  editarPreguntaCamino($event: number) {
+    this.preguntaCaminoParaEditarActiva =
+      this.preguntasService.getPreguntasById($event);
+  }
+  /**
+   *
+   * @param $event Id de la pregunta a editar
+   */
+  editarPreguntaPuntaje($event: number) {
+    this.preguntaPuntajeParaEditarActiva =
+      this.preguntasService.getPreguntasById($event);
   }
 }

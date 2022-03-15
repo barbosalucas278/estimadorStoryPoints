@@ -24,6 +24,7 @@ export class FormCreatePregCaminoComponent implements OnInit, OnChanges {
   @Input() ultimoId?: number;
   @Input() ultimoCamino?: number;
   @Input() caminoActivo?: number;
+  @Input() preguntaParaEditar?: Pregunta;
 
   form: FormGroup;
   newPreguntaCamino?: Pregunta;
@@ -45,16 +46,27 @@ export class FormCreatePregCaminoComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   inicializarPregunta() {
-    this.newPreguntaCamino = {
-      id: this.ultimoId! + 1,
-      texto: '',
-      opciones: [
-        { opcionId: 1, texto: '', valor: this.ultimoCamino! + 1 },
-        { opcionId: 2, texto: '', valor: this.ultimoCamino! + 2 },
-      ],
-      isChangeCamino: true,
-      valorCamino: this.caminoActivo,
-    };
+    if (this.preguntaParaEditar) {
+      this.newPreguntaCamino = { ...this.preguntaParaEditar };
+      this.form.controls['texto'].setValue(this.preguntaParaEditar.texto);
+      this.form.controls['camino1'].setValue(
+        this.preguntaParaEditar.opciones![0].texto
+      );
+      this.form.controls['camino2'].setValue(
+        this.preguntaParaEditar.opciones![1].texto
+      );
+    } else {
+      this.newPreguntaCamino = {
+        id: this.ultimoId! + 1,
+        texto: '',
+        opciones: [
+          { opcionId: 1, texto: '', valor: this.ultimoCamino! + 1 },
+          { opcionId: 2, texto: '', valor: this.ultimoCamino! + 2 },
+        ],
+        isChangeCamino: true,
+        valorCamino: this.caminoActivo,
+      };
+    }
   }
 
   finalizar() {
